@@ -1,0 +1,25 @@
+
+server:
+  port: 9898
+
+jwt:
+  secret: clanetest
+
+spring:
+  jpa:
+    show-sql: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      use-new-id-generator-mappings: true
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost/clane_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Africa/Lagos
+    username: root
+    password: ""
+
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
