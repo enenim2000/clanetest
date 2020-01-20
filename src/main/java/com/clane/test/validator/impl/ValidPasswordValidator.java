@@ -1,7 +1,9 @@
 package com.clane.test.validator.impl;
 
 import com.clane.test.validator.ValidPassword;
+import lombok.extern.slf4j.Slf4j;
 import org.passay.*;
+import org.passay.dictionary.ArrayWordList;
 import org.passay.dictionary.WordListDictionary;
 import org.passay.dictionary.WordLists;
 import org.passay.dictionary.sort.ArraysSort;
@@ -10,31 +12,21 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
+@Slf4j
 public class ValidPasswordValidator implements ConstraintValidator<ValidPassword, String> {
 
     private DictionaryRule dictionaryRule;
 
     @Override
     public void initialize(ValidPassword constraintAnnotation) {
-        try {
-            //String invalidPasswordList = this.getClass().getResource("/invalid-password-list.txt").getFile();
-            String invalidPasswordList = "/" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()  + "invalid-password-list.txt";
-            dictionaryRule = new DictionaryRule(
-                    new WordListDictionary(WordLists.createFromReader(
-                            // Reader around the word list file
-                            new FileReader[] {
-                                    new FileReader(invalidPasswordList)
-                            },
-                            // True for case sensitivity, false otherwise
-                            false,
-                            // Dictionaries must be sorted
-                            new ArraysSort()
-                    )));
-        } catch (IOException e) {
-            throw new RuntimeException("could not load word list", e);
-        }
+        String[] array = new String[] {"123456789", "password", "computer", "password123"};
+        Arrays.sort(array);
+        dictionaryRule = new DictionaryRule(
+                new WordListDictionary(new ArrayWordList(
+                        array)));
     }
 
     @Override
