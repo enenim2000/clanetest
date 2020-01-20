@@ -8,15 +8,19 @@ jwt:
 spring:
   jpa:
     show-sql: false
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       use-new-id-generator-mappings: true
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost/clane_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Africa/Lagos
-    username: root
-    password: ""
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+    #url: jdbc:postgresql://localhost:5432/postgres
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
 
   main:
     allow-bean-definition-overriding: true
