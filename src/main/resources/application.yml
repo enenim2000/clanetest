@@ -17,12 +17,9 @@ spring:
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 5
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: Password@123
-    #url: ${JDBC_DATABASE_URL}
-    #username: ${JDBC_DATABASE_USERNAME}
-    #password: ${JDBC_DATABASE_PASSWORD}
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
 
   main:
     allow-bean-definition-overriding: true

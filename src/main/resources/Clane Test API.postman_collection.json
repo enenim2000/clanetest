@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "1cdb6c17-59ce-4f7f-a594-89157114d682",
+		"name": "Clane Test API",
+		"description": "Clane Test samples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign-up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3adc32af-cc72-413b-87f8-d3e5fba200b6",
+						"exec": [
+							"\r",
+							"pm.test(\"success status\", () => pm.response.to.be.success );\r",
+							"\r",
+							"pm.test(\"name is correct\", () => \r",
+							"  pm.expect(pm.response.json().name).to.equal(\"Uyo Asukwo\"));\r",
+							"  \r",
+							"pm.test(\"email is correct\", () => \r",
+							"  pm.expect(pm.response.json().email).to.equal(\"uyo2000@gmail.com\"));\r",
+							"\r",
+							"pm.test(\"bio is correct\", () => \r",
+							"  pm.expect(pm.response.json().bio).to.equal(\"He is a developer\"));\r",
+							"  \r",
+							"pm.test(\"id was assigned\", () => \r",
+							"  pm.expect(pm.response.json().id).to.be.not.null );\r",
+							"  \r",
+							"  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Uyo Asukwo\",\r\n\t\"email\":\"uyo2000@gmail.com\",\r\n\t\"bio\":\"He is a developer\",\r\n\t\"password\":\"Password@123\",\r\n\t\"confirm_password\":\"Password@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/accounts/sign-up",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"accounts",
+						"sign-up"
+					]
+				},
+				"description": "This request allows a user to sign up as an author"
+			},
+			"response": []
+		},
+		{
+			"name": "View Authors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9602ac0d-3073-4c92-9bbe-b71354e347be",
+						"exec": [
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success );",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Uyo Asukwo\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/authors",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"authors"
+					]
+				},
+				"description": "This request returns all authors"
+			},
+			"response": []
+		},
+		{
+			"name": "Sign-in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac6173ff-80dd-4bde-9303-a7f32cc407d6",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success);",
+							"  ",
+							"pm.variables.set(\"token\", pm.response.json().token); ",
+							"  ",
+							"",
+							"  ",
+							"  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"bola@gmail.com\",\n\t\"password\":\"Password@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/accounts/sign-in",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"accounts",
+						"sign-in"
+					]
+				},
+				"description": "This request allows a user to sign in inorder to create, edit, or delete an article"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f3bf485-0c7b-4d7f-a8ba-f0e4c76413f9",
+						"exec": [
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success );",
+							"",
+							"pm.test(\"title is correct\", () => ",
+							"  pm.expect(pm.response.json().title).to.equal(\"The real story of the beginning\"));",
+							"  ",
+							"pm.test(\"content is correct\", () => ",
+							"  pm.expect(pm.response.json().content).to.equal(\"All that the world is awaiting\"));",
+							"  ",
+							"pm.variables.set(\"id\", pm.response.json().id); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"The real story of the beginning\",\n\t\"content\":\"All that the world is awaiting\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/articles",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"articles"
+					]
+				},
+				"description": "This request allows a logged in author to submit an article"
+			},
+			"response": []
+		},
+		{
+			"name": "View Articles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7dbdb2e3-31bc-4e8a-a186-e5cc0f0e548e",
+						"exec": [
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/articles",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"articles"
+					]
+				},
+				"description": "This request allow a user to view all articles"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8dd7a0a3-c503-4e61-b8f5-903de829296d",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success );",
+							"",
+							"pm.test(\"title is correct\", () => ",
+							"  pm.expect(pm.response.json().title).to.equal(\"Beauty and the beast\"));",
+							"  ",
+							"pm.test(\"content is correct\", () => ",
+							"  pm.expect(pm.response.json().content).to.equal(\"What a great tale of lovers\"));",
+							"  ",
+							"pm.test(\"id is correct\", () => ",
+							"  pm.expect(pm.response.json().id).to.equal(pm.variables.get(\"id\")) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"Beauty and the beast\",\n\t\"content\":\"What a great tale of lovers\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/articles/{{id}}",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": "This request allows an author to edit article he/she created"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0be653bf-71ca-4987-9f0e-a1dcc0324173",
+						"exec": [
+							"",
+							"pm.test(\"success status\", () => pm.response.to.be.success );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://clanetest.herokuapp.com/articles/{{id}}",
+					"protocol": "https",
+					"host": [
+						"clanetest",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": "This request enables a user to delete an article he/she created"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
