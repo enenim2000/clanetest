@@ -19,7 +19,8 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
     @Override
     public void initialize(ValidPassword constraintAnnotation) {
         try {
-            String invalidPasswordList = this.getClass().getResource("/invalid-password-list.txt").getFile();
+            //String invalidPasswordList = this.getClass().getResource("/invalid-password-list.txt").getFile();
+            String invalidPasswordList = "/" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()  + "invalid-password-list.txt";
             dictionaryRule = new DictionaryRule(
                     new WordListDictionary(WordLists.createFromReader(
                             // Reader around the word list file
