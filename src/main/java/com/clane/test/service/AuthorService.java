@@ -32,6 +32,11 @@ public class AuthorService {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * <p>Note: This method returns the list of authors</p>
+     *
+     * @return List of authors
+     */
     public List<AuthorResponse> getAuthors() {
         List<AuthorResponse> authors = new ArrayList<>();
         authorRepository.findAll().forEach((Author author) -> authors.add(
@@ -47,11 +52,23 @@ public class AuthorService {
         return authors;
     }
 
+    /**
+     * <p>Note: This method retrieves an author by its identifier</p>
+     *
+     * @param authorId author identifier
+     * @return author object
+     */
     Author getAuthor(Long authorId) {
         return authorRepository.findById(authorId).orElseThrow(()
                 -> new AppException("author_not_found", String.valueOf(authorId), HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * <P>Note: This method register a new author</P>
+     *
+     * @param request newly registered author to be created
+     * @return author object
+     */
     public AuthorResponse saveAuthor(SignUpRequest request) {
         Author author = modelMapper.map(request, Author.class);
         author.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -59,6 +76,12 @@ public class AuthorService {
         return modelMapper.map(author, AuthorResponse.class);
     }
 
+    /**
+     * <p>Note: This method retrieve an author by its username</p>
+     *
+     * @param username author username
+     * @return author object
+     */
     public Author getAuthorByUsername(String username) {
         return authorRepository.getAuthorByEmail(username).orElse(null);
     }
