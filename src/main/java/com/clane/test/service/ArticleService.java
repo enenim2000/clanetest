@@ -32,6 +32,10 @@ public class ArticleService {
         this.modelMapper = modelMapper;
     }
 
+    public List<ArticleResponse> getAuthorArticles() {
+        return articleRepository.findAuthorArticles(RequestUtil.getLoggedInUser());
+    }
+
     /**
      * <p>Note: This method returns all articles</p>
      *
